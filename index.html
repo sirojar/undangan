@@ -250,13 +250,12 @@
   /* ---------- tampilan ponsel: satu halaman satu layar ----------
      Setiap unit isi (hero, welcome, tiap mempelai, hitung mundur, ayat, tiap
      acara, galeri, hadiah, form ucapan, daftar ucapan, penutup) menempati satu
-     layar penuh dan di-snap tegas, jadi tiap guliran berpindah satu halaman.
-     svh dipakai supaya isi tidak terpotong bilah alamat Safari iOS. */
+     layar penuh, tetapi gulirannya bebas tanpa snap supaya tidak berpindah
+     sendiri saat jari dilepas. dvh dipakai supaya tinggi mengikuti layar saat
+     bilah alamat muncul atau menyusut. */
   @media (max-width:700px){
-    html{scroll-snap-type:y mandatory}
     #isi > section, .halaman-mandiri{
       min-height:100svh;min-height:100dvh;
-      scroll-snap-align:start;scroll-snap-stop:always;
       display:flex;flex-direction:column;justify-content:center
     }
     #isi > section > .wrap{width:100%}
@@ -267,10 +266,9 @@
 
     /* section yang memuat beberapa halaman: biarkan tinggi mengikuti isinya,
        yang jadi halaman adalah blok di dalamnya */
-    #isi > section.multi{min-height:0;display:block;padding-block:0;scroll-snap-align:none}
+    #isi > section.multi{min-height:0;display:block;padding-block:0}
     .multi .welcome, .multi .orang, .multi .acara > article, .multi .halaman{
       min-height:100svh;min-height:100dvh;
-      scroll-snap-align:start;scroll-snap-stop:always;
       display:flex;flex-direction:column;justify-content:center;padding-block:36px
     }
     .multi .orang{margin-top:0;gap:22px}

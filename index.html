@@ -14,7 +14,7 @@
     --script:"Pinyon Script","Cormorant Garamond",cursive;
     --ui:"Jost","Helvetica Neue",Arial,sans-serif;
     --max:520px;
-    --kolom:1000px;        /* lebar kolom undangan di layar lebar; makin besar, makin tipis pita di kiri-kanan */
+    --kolom:560px;        /* lebar kolom undangan di layar lebar; makin besar, makin tipis pita di kiri-kanan */
     --luar:#DCD3C4;       /* warna area di luar kolom */
   }
   *{box-sizing:border-box}
@@ -158,8 +158,21 @@
   .acara .aksi{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
 
   /* ---------- galeri ---------- */
-  .galeri{display:grid;grid-template-columns:repeat(2,1fr);gap:3px}
-  .galeri .foto{aspect-ratio:3/4}
+  /* Galeri geser: dua foto terlihat sekaligus, sisanya digeser ke samping.
+     Snap horizontal per foto; scroll-snap-type sumbu x di sini tidak bentrok
+     dengan snap vertikal halaman karena keduanya sumbu berbeda. */
+  .galeri{
+    display:flex;gap:0;overflow-x:auto;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch
+  }
+  .galeri::-webkit-scrollbar{display:none}
+  .galeri .foto{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:3/4}
+  .galeri-nav{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px}
+  .galeri-nav button{
+    width:7px;height:7px;padding:0;border-radius:50%;cursor:pointer;
+    border:1px solid var(--ink-soft);background:transparent;transition:background .3s ease
+  }
+  .galeri-nav button[aria-current="true"]{background:var(--ink);border-color:var(--ink)}
   .galeri .foto img{transition:transform .8s ease}
   .galeri .foto:hover img{transform:scale(1.04)}
 
@@ -310,6 +323,59 @@
     #penutup .nama{font-size:clamp(42px,13vw,58px)}
   }
 
+  /* ---------- ponsel layar tinggi (iPhone 15/16/17, Android modern) ----------
+     Di layar 780px ke atas, ukuran sebelumnya menyisakan separuh layar kosong
+     sehingga teks terlihat kecil dan hilang di tengah. Tingkatan ini menaikkan
+     skala huruf dan jarak agar isi mengisi layar, tanpa mengubah ponsel kecil. */
+  @media (max-width:700px) and (min-height:780px){
+    body{font-size:20px}
+    .lead{font-size:20px;max-width:27ch}
+    .eyebrow,.cover-eyebrow{font-size:14.5px}
+    .kepada strong{font-size:36px}
+    .btn{font-size:15px;padding:18px 34px}
+    .hero p.kalimat{font-size:19px}
+    .vline{height:76px;margin:30px auto}
+    .welcome h2{font-size:42px}
+    .welcome .nama-pasangan{font-size:38px}
+    .orang{gap:28px}
+    .orang .teks .label{font-size:14.5px}
+    .orang .teks h3{font-size:45px}
+    .orang .teks .ortu{font-size:18px;margin-top:18px}
+    #countdown .script{font-size:60px}
+    .count{margin-top:34px}
+    .count b{font-size:54px}
+    .count span{font-size:13.5px}
+    #countdown .tanggal{font-size:16.5px;margin-top:30px}
+    .ayat p{font-size:20px;line-height:2}
+    .ayat cite{font-size:14.5px;margin-top:24px}
+    .acara .script{font-size:60px;margin-bottom:26px}
+    .acara .namahari{font-size:15px}
+    .tanggal-row .sisi{font-size:16px}
+    .tanggal-row .hari-num{font-size:82px}
+    .acara .jam-label,.acara .tempat-label{font-size:14px;margin-top:30px}
+    .acara .jam{font-size:38px}
+    .acara .tempat{font-size:30px}
+    .acara .ruang{font-size:25px}
+    .acara .kota{font-size:18px}
+    .acara .aksi{margin-top:32px}
+    .kartu-bank{padding:30px 24px}
+    .kartu-bank .bank{font-size:15px}
+    .kartu-bank .no{font-size:40px}
+    .kartu-bank .an{font-size:17px}
+    .daftar-bank{margin-top:38px}
+    label{font-size:14px}
+    input,textarea,select{font-size:19px;padding:15px 16px}
+    textarea{min-height:120px}
+    .jumlah-ucapan{font-size:14.5px}
+    .pesan-list{max-height:52dvh}
+    .pesan-list .who{font-size:26px}
+    .pesan-list p{font-size:19px}
+    .kosong-ucapan{font-size:19px;padding:38px 24px}
+    /* foto galeri dibuat lebih jangkung supaya tidak jadi pita kecil di layar tinggi */
+    .galeri .foto{aspect-ratio:auto;height:68dvh}
+    #penutup .nama{font-size:clamp(46px,14vw,64px)}
+  }
+
   .reveal{opacity:0;transform:translateY(22px)}
   .reveal.in{opacity:1;transform:none;transition:opacity 1.1s ease,transform 1.1s ease}
   @media (prefers-reduced-motion:reduce){
@@ -359,7 +425,7 @@
         <div class="teks">
           <p class="label" id="l-wanita">Dinda</p>
           <h3 id="nf-wanita">Adinda Larassafira</h3>
-          <p class="ortu">Anak kedua dari<b id="o-wanita">Madalih &amp; Musliha</b></p>
+          <p class="ortu">Anak kedua dari<b id="o-wanita">Bapak Madalih &amp; Ibu Musliha</b></p>
         </div>
       </div>
 
@@ -368,7 +434,7 @@
         <div class="teks">
           <p class="label" id="l-pria">Siroj</p>
           <h3 id="nf-pria">Siroj Jibril Al Rasyidi</h3>
-          <p class="ortu">Anak kedua dari<b id="o-pria">Miftah Choer &amp; Evi Herawati</b></p>
+          <p class="ortu">Anak kedua dari<b id="o-pria">Bapak Miftah Choer &amp; Ibu Evi Herawati</b></p>
         </div>
       </div>
     </div>
@@ -404,7 +470,9 @@
 
   <!-- ============ GALERI ============ -->
   <section>
+    <p class="eyebrow center" style="margin-bottom:20px">Galeri</p>
     <div class="galeri" id="galeri"></div>
+    <div class="galeri-nav" id="galeri-nav" aria-label="Navigasi galeri"></div>
   </section>
 
   <!-- ============ HADIAH ============ -->
@@ -472,10 +540,10 @@
    ===================================================================== */
 const CONFIG = {
   wanita:{ panggilan:"Dinda", lengkap:"Adinda Larassafira",
-           anakKe:"Anak kedua dari", ortu:"Bapak Madalih &amp; Ibu Musliha",
+           anakKe:"Anak kedua dari", ortu:"Madalih &amp; Musliha",
            foto:{ src:"foto/wanita.jpg", pos:"48% 38%" } },
   pria:  { panggilan:"Siroj", lengkap:"Siroj Jibril Al Rasyidi",
-           anakKe:"Anak kedua dari", ortu:"Bapak Miftah Choer &amp; Ibu Evi Herawati",
+           anakKe:"Anak kedua dari", ortu:"Miftah Choer &amp; Evi Herawati",
            foto:{ src:"foto/pria.jpg", pos:"72% 30%" } },
 
   kalimatHero:"With grateful hearts, we invite you to join us as we begin our forever.",
@@ -603,12 +671,34 @@ $("#acara").innerHTML = CONFIG.acara.map(a=>`
 
 /* -- galeri -- */
 const g = $("#galeri");
-(CONFIG.galeri.length ? CONFIG.galeri : ["","","",""]).slice(0,8).forEach((src,i)=>{
+const fotoGaleri = (CONFIG.galeri.length ? CONFIG.galeri : ["","","",""]).slice(0,12);
+fotoGaleri.forEach((src,i)=>{
   const d = document.createElement("div");
   d.className = "foto kosong";
   g.appendChild(d);
   pasang(d, src, "Foto prewedding "+(i+1));
 });
+
+/* titik navigasi galeri: satu titik per foto, aktif mengikuti posisi geseran */
+const nav = $("#galeri-nav");
+if (fotoGaleri.length > 1){
+  fotoGaleri.forEach((_,i)=>{
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Ke foto "+(i+1));
+    b.addEventListener("click", ()=>{
+      g.scrollTo({ left: i * g.firstElementChild.offsetWidth, behavior:"smooth" });
+    });
+    nav.appendChild(b);
+  });
+  const tandai = ()=>{
+    const lebar = g.firstElementChild.offsetWidth;
+    const aktif = Math.round(g.scrollLeft / lebar);
+    [...nav.children].forEach((b,i)=> b.setAttribute("aria-current", i===aktif ? "true" : "false"));
+  };
+  g.addEventListener("scroll", ()=>{ clearTimeout(g._t); g._t = setTimeout(tandai, 80); });
+  tandai();
+} else nav.remove();
 
 /* -- rekening -- */
 $("#rekening").innerHTML = CONFIG.rekening.map(r=>`

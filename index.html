@@ -246,10 +246,10 @@
       display:flex;flex-direction:column;justify-content:center
     }
     #isi > section > .wrap{width:100%}
-    .pad{padding-block:48px}
+    .pad{padding-block:36px}
     .hero{height:auto;min-height:100svh;min-height:100dvh}
-    #countdown{padding-block:48px}
-    #penutup .in{padding-block:48px}
+    #countdown{padding-block:36px}
+    #penutup .in{padding-block:36px}
 
     /* section yang memuat beberapa halaman: biarkan tinggi mengikuti isinya,
        yang jadi halaman adalah blok di dalamnya */
@@ -257,7 +257,7 @@
     .multi .welcome, .multi .orang, .multi .acara > article, .multi .halaman{
       min-height:100svh;min-height:100dvh;
       scroll-snap-align:start;scroll-snap-stop:always;
-      display:flex;flex-direction:column;justify-content:center;padding-block:48px
+      display:flex;flex-direction:column;justify-content:center;padding-block:36px
     }
     .multi .orang{margin-top:0;gap:22px}
     .multi .acara{display:block;gap:0}
@@ -267,6 +267,47 @@
     .pesan-list{max-height:46svh;max-height:46dvh;overflow-y:auto}
 
     .akhir{display:none}
+
+    /* ---- skala huruf khusus ponsel (desktop tidak terpengaruh) ---- */
+    body{font-size:18.5px;line-height:1.75}
+    .eyebrow,.cover-eyebrow{font-size:13.5px;letter-spacing:.26em}
+    .lead{font-size:18.5px;max-width:29ch}
+    .kepada small{font-size:13.5px}
+    .kepada strong{font-size:33px}
+    .btn{font-size:14px;padding:16px 32px;letter-spacing:.18em}
+    .hero p.kalimat{font-size:17px;max-width:28ch}
+    .welcome h2{font-size:36px}
+    .welcome .nama-pasangan{font-size:34px}
+    .orang .teks .label{font-size:13.5px}
+    .orang .teks h3{font-size:39px}
+    .orang .teks .ortu{font-size:16.5px}
+    #countdown .script{font-size:52px}
+    .count b{font-size:46px}
+    .count span{font-size:12.5px}
+    #countdown .tanggal{font-size:15px}
+    .ayat p{font-size:18.5px;line-height:1.9}
+    .ayat cite{font-size:13.5px}
+    .acara .script{font-size:52px}
+    .acara .namahari{font-size:14px}
+    .tanggal-row .sisi{font-size:15px}
+    .tanggal-row .hari-num{font-size:70px}
+    .acara .jam-label,.acara .tempat-label{font-size:13px;margin-top:20px}
+    .acara .jam{font-size:34px}
+    .acara .tempat{font-size:27px}
+    .acara .ruang{font-size:23px}
+    .acara .kota{font-size:16.5px}
+    .kartu-bank .bank{font-size:14px}
+    .kartu-bank .no{font-size:36px}
+    .kartu-bank .an{font-size:15.5px}
+    label{font-size:13px}
+    input,textarea,select{font-size:18px}
+    .jumlah-ucapan{font-size:13.5px}
+    .pesan-list .who{font-size:24px}
+    .pesan-list .tag{font-size:12.5px}
+    .pesan-list p{font-size:17.5px}
+    .pager .posisi{font-size:13.5px}
+    .kosong-ucapan{font-size:17.5px}
+    #penutup .nama{font-size:clamp(42px,13vw,58px)}
   }
 
   .reveal{opacity:0;transform:translateY(22px)}
@@ -318,7 +359,7 @@
         <div class="teks">
           <p class="label" id="l-wanita">Dinda</p>
           <h3 id="nf-wanita">Adinda Larassafira</h3>
-          <p class="ortu">Anak kedua dari<b id="o-wanita">Bapak Madalih &amp; Ibu Musliha</b></p>
+          <p class="ortu">Anak kedua dari<b id="o-wanita">Madalih &amp; Musliha</b></p>
         </div>
       </div>
 
@@ -327,7 +368,7 @@
         <div class="teks">
           <p class="label" id="l-pria">Siroj</p>
           <h3 id="nf-pria">Siroj Jibril Al Rasyidi</h3>
-          <p class="ortu">Anak kedua dari<b id="o-pria">Bapak Miftah Choer &amp; Ibu Evi Herawati</b></p>
+          <p class="ortu">Anak kedua dari<b id="o-pria">Miftah Choer &amp; Evi Herawati</b></p>
         </div>
       </div>
     </div>
@@ -431,10 +472,10 @@
    ===================================================================== */
 const CONFIG = {
   wanita:{ panggilan:"Dinda", lengkap:"Adinda Larassafira",
-           anakKe:"Anak kedua dari", ortu:"Madalih &amp; Musliha",
+           anakKe:"Anak kedua dari", ortu:"Bapak Madalih &amp; Ibu Musliha",
            foto:{ src:"foto/wanita.jpg", pos:"48% 38%" } },
   pria:  { panggilan:"Siroj", lengkap:"Siroj Jibril Al Rasyidi",
-           anakKe:"Anak kedua dari", ortu:"Miftah Choer &amp; Evi Herawati",
+           anakKe:"Anak kedua dari", ortu:"Bapak Miftah Choer &amp; Ibu Evi Herawati",
            foto:{ src:"foto/pria.jpg", pos:"72% 30%" } },
 
   kalimatHero:"With grateful hearts, we invite you to join us as we begin our forever.",

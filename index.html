@@ -251,16 +251,18 @@
      Setiap unit isi (hero, welcome, tiap mempelai, hitung mundur, ayat, tiap
      acara, galeri, hadiah, form ucapan, daftar ucapan, penutup) menempati satu
      layar penuh, tetapi gulirannya bebas tanpa snap supaya tidak berpindah
-     sendiri saat jari dilepas. dvh dipakai supaya tinggi mengikuti layar saat
-     bilah alamat muncul atau menyusut. */
+     sendiri saat jari dilepas. Tingginya memakai svh (tinggi layar saat bilah
+     alamat tampil) dan sengaja BUKAN dvh: nilai dvh ikut berubah ketika bilah
+     alamat menyusut, sehingga tiap bagian berubah tinggi di tengah guliran dan
+     browser menggeser ulang posisi, yang terasa seperti snap. */
   @media (max-width:700px){
     #isi > section, .halaman-mandiri{
-      min-height:100svh;min-height:100dvh;
+      min-height:100svh;
       display:flex;flex-direction:column;justify-content:center
     }
     #isi > section > .wrap{width:100%}
     .pad{padding-block:36px}
-    .hero{height:auto;min-height:100svh;min-height:100dvh}
+    .hero{height:auto;min-height:100svh}
     #countdown{padding-block:36px}
     #penutup .in{padding-block:36px}
 
@@ -268,7 +270,7 @@
        yang jadi halaman adalah blok di dalamnya */
     #isi > section.multi{min-height:0;display:block;padding-block:0}
     .multi .welcome, .multi .orang, .multi .acara > article, .multi .halaman{
-      min-height:100svh;min-height:100dvh;
+      min-height:100svh;
       display:flex;flex-direction:column;justify-content:center;padding-block:36px
     }
     .multi .orang{margin-top:0;gap:22px}
@@ -276,7 +278,7 @@
     .ucapan-sec .halaman{gap:0}
 
     /* daftar ucapan digulir di dalam halamannya sendiri supaya tetap muat */
-    .pesan-list{max-height:46svh;max-height:46dvh;overflow-y:auto}
+    .pesan-list{max-height:46svh;overflow-y:auto}
 
     .akhir{display:none}
 
@@ -367,12 +369,12 @@
     input,textarea,select{font-size:19px;padding:15px 16px}
     textarea{min-height:120px}
     .jumlah-ucapan{font-size:14.5px}
-    .pesan-list{max-height:52dvh}
+    .pesan-list{max-height:52svh}
     .pesan-list .who{font-size:26px}
     .pesan-list p{font-size:19px}
     .kosong-ucapan{font-size:19px;padding:38px 24px}
     /* foto galeri dibuat lebih jangkung supaya tidak jadi pita kecil di layar tinggi */
-    .galeri .foto{aspect-ratio:auto;height:68dvh}
+    .galeri .foto{aspect-ratio:auto;height:68svh}
     #penutup .nama{font-size:clamp(46px,14vw,64px)}
   }
 
@@ -555,11 +557,11 @@ const CONFIG = {
 
   acara:[
     { nama:"Akad Nikah", hari:"Minggu", tanggal:"4", bulan:"Oktober", tahun:"2026",
-      jam:"08.00 WIB", tempat:"Aston Hotel", ruang:"Legacy Hall", kota:"Bekasi",
+      jam:"08.00 WIB", tempat:"Aston Hotel", ruang:"Legacy Hall Lt. 1", kota:"Bekasi",
       maps:"https://maps.google.com/?q=Aston+Hotel+Bekasi",
       mulai:"2026-10-04T08:00:00+07:00", selesai:"2026-10-04T10:00:00+07:00" },
     { nama:"Resepsi", hari:"Minggu", tanggal:"4", bulan:"Oktober", tahun:"2026",
-      jam:"11.00 WIB", tempat:"Aston Hotel", ruang:"Legacy Hall", kota:"Bekasi",
+      jam:"11.00 WIB", tempat:"Aston Hotel", ruang:"Legacy Hall Lt. 1", kota:"Bekasi",
       maps:"https://maps.google.com/?q=Aston+Hotel+Bekasi",
       mulai:"2026-10-04T11:00:00+07:00", selesai:"2026-10-04T14:00:00+07:00" }
   ],
